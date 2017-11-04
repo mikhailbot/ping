@@ -4,7 +4,7 @@ defmodule Ping.Monitor.Server do
   # API
 
   def start_link(host_ip_address, host_status) do
-    GenServer.start_link(__MODULE__, [host_ip_address, host_status], name: via_tuple(host_ip_address))
+    GenServer.start_link(__MODULE__, %{host_ip_address: host_ip_address, host_status: host_status}, name: via_tuple(host_ip_address))
   end
 
   defp via_tuple(host_ip_address) do
@@ -21,10 +21,16 @@ defmodule Ping.Monitor.Server do
 
   # SERVER
 
-  def init(host_ip_address) do
-    IO.puts "INIT"
-    # state = %{ ip_address: host_ip_address, current_status: host_status, previous_stuatus: host_status, latency: 0, status_changes: 0}
-    {:ok, host_ip_address}
+  def init(initial_state) do
+    state = %{
+      ip_address: initial_state.host_ip_address,
+      current_status: initial_state.host_status,
+      previous_stuatus: initial_state.host_status,
+      latency: 0,
+      status_changes: 0
+    }
+
+    {:ok, state}
   end
 
   def handle_cast({:add_message, new_message}, state) do
