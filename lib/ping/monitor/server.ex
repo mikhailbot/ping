@@ -3,24 +3,24 @@ defmodule Ping.Monitor.Server do
   alias Ping.Monitor.Check
   # API
 
-  def start_link(host_ip_address, host_status) do
-    GenServer.start_link(__MODULE__, %{host_ip_address: host_ip_address, host_status: host_status}, name: via_tuple(host_ip_address))
+  def start_link(ip_address, status) do
+    GenServer.start_link(__MODULE__, %{ip_address: ip_address, status: status}, name: via_tuple(ip_address))
   end
 
-  defp via_tuple(host_ip_address) do
-    {:via, :gproc, {:n, :l, {:host_monitor, host_ip_address}}}
+  defp via_tuple(ip_address) do
+    {:via, :gproc, {:n, :l, {:host_monitor, ip_address}}}
   end
 
-  def get_state(host_ip_address) do
-    GenServer.call(via_tuple(host_ip_address), :get_state)
+  def get_state(ip_address) do
+    GenServer.call(via_tuple(ip_address), :get_state)
   end
 
   # SERVER
 
   def init(initial_state) do
     state = %{
-      ip_address: initial_state.host_ip_address,
-      status: initial_state.host_status,
+      ip_address: initial_state.ip_address,
+      status: initial_state.status,
       latency: 0,
       online_counter: 0,
       offline_counter: 0,
