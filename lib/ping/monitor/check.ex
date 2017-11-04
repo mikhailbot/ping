@@ -5,7 +5,7 @@ defmodule Ping.Monitor.Check do
   """
 
   def ping_args(ip) do
-    ["-c", "1", "-t", "5", ip]
+    ["-c", "1", "-t", "2", ip]
   end
 
   def host_up(ip_address) do
@@ -20,7 +20,13 @@ defmodule Ping.Monitor.Check do
         _ -> 0
       end
 
-    {:ok, %{ip_address: ip_address, time: :os.system_time(:seconds), latency: latency}}
+    status =
+      case latency do
+        0 -> "offline"
+        _ -> "online"
+      end
+
+    {:ok, %{ip_address: ip_address, time: :os.system_time(:seconds), latency: latency, status: status}}
   rescue
     e -> {:error, e}
   end

@@ -8,7 +8,7 @@ defmodule Ping.Monitor.Host do
     field :ip_address, IPv4
     field :latency, :integer
     field :name, :string
-    field :status, :string, default: "unknown"
+    field :status, :string, default: "initial"
 
     timestamps()
   end
