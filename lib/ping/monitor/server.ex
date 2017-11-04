@@ -11,10 +11,6 @@ defmodule Ping.Monitor.Server do
     {:via, :gproc, {:n, :l, {:host_monitor, host_ip_address}}}
   end
 
-  def add_message(host_ip_address, message) do
-    GenServer.cast(via_tuple(host_ip_address), {:add_message, message})
-  end
-
   def get_state(host_ip_address) do
     GenServer.call(via_tuple(host_ip_address), :get_state)
   end
@@ -31,10 +27,6 @@ defmodule Ping.Monitor.Server do
     }
 
     {:ok, state}
-  end
-
-  def handle_cast({:add_message, new_message}, state) do
-    {:noreply, state}
   end
 
   def handle_call(:get_state, _from, state) do
