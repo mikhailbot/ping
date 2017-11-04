@@ -14,7 +14,7 @@ defmodule Ping.Application do
       supervisor(PingWeb.Endpoint, []),
       # Start your own worker by calling: Ping.Worker.start_link(arg1, arg2, arg3)
       # worker(Ping.Worker, [arg1, arg2, arg3]),
-      supervisor(Ping.Monitor.Registry, [])
+      worker(Ping.Monitor.Supervisor, [])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
