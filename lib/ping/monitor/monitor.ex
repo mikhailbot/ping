@@ -6,7 +6,7 @@ defmodule Ping.Monitor do
   import Ecto.Query, warn: false
   alias Ping.Repo
 
-  alias Ping.Monitor.Host
+  alias Ping.Monitor.{Host, Supervisor}
 
   @doc """
   Returns the list of hosts.
@@ -112,5 +112,10 @@ defmodule Ping.Monitor do
   """
   def change_host(%Host{} = host) do
     Host.changeset(host, %{})
+  end
+
+  def start_monitoring do
+    list_hosts()
+    |> Enum.each(fn (host) -> Supervisor.start_monitoring_host(host.ip_address, host.status, host.check_frequency) end)
   end
 end

@@ -20,7 +20,11 @@ defmodule Ping.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Ping.Supervisor]
-    Supervisor.start_link(children, opts)
+    with {:ok, pid} <- Supervisor.start_link(children, opts) do
+      # Start GenServers for existing hosts
+      Ping.Monitor.start_monitoring()
+      {:ok, pid}
+    end
   end
 
   # Tell Phoenix to update the endpoint configuration
