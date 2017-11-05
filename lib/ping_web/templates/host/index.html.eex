@@ -1,0 +1,36 @@
+<div id="list-of-hosts">
+  <section class="pl2 pr2 mw6 center">
+    <p class="tc f6 gray i">A MVP release of the ping monitor for Epics and other hosts&mdash;more coming soon!</p>
+
+    <div class="pt3 tc">
+      <%= link "Add New Host", to: "/hosts/new", class: "pointer bn br2 ba ph4 pv2 mb2 dib white bg-green no-underline ma"%>
+    </div>
+  </section>
+  <section class="mw6 center">
+    <div class="list mt4 center">
+      <%= for host <- @hosts do %>
+        <a class="flex items-center lh-copy pa3 ph0-l bb b--black-10 bg-animate hover-bg-near-white no-underline" href="/hosts/<%= host.id %>">
+            <div class="pl4 flex-auto">
+              <span class="db b black-90"><%= host.name %></span>
+              <span class="db black-70"><%= host.ip_address %></span>
+            </div>
+            <div class="pr4">
+            <%= cond do %>
+              <% host.latency > 0 -> %>
+                <span class="b green"><%= host.latency %> ms</span>
+              <% host.latency == 0 -> %>
+                <span class="b red">
+                  <svg width="21px" height="21px" viewBox="-1 -1 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+                      <desc>Created with Sketch.</desc>
+                      <defs></defs>
+                      <path d="M2.93,17.07 C0.330434155,14.5592553 -0.712125972,10.8412211 0.203028434,7.34492676 C1.11818284,3.84863244 3.84863244,1.11818284 7.34492676,0.203028434 C10.8412211,-0.712125972 14.5592553,0.330434155 17.07,2.93 C20.8597221,6.85378887 20.8055237,13.0908478 16.9481858,16.9481858 C13.0908478,20.8055237 6.85378887,20.8597221 2.93,17.07 L2.93,17.07 Z M9,5 L9,11 L11,11 L11,5 L9,5 Z M9,13 L9,15 L11,15 L11,13 L9,13 Z" id="Shape" stroke="none" fill="#FF4136" fill-rule="nonzero"></path>
+                  </svg>
+                </span>
+            <% end %>
+            </div>
+        </a>
+      <% end %>
+    </div>
+  </section>
+</div>

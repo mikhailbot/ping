@@ -1,0 +1,35 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="flex items-center justify-center pa3 br2 bg-light-red black measure mb4">
+      <svg class="w1" data-icon="info" viewBox="0 0 32 32" style="fill:currentcolor">
+        <title>info icon</title>
+        <path d="M16 0 A16 16 0 0 1 16 32 A16 16 0 0 1 16 0 M19 15 L13 15 L13 26 L19 26 z M16 6 A3 3 0 0 0 16 12 A3 3 0 0 0 16 6"></path>
+      </svg>
+      <span class="lh-title ml3">Oops, something went wrong! Please check the errors below.</span>
+    </div>
+  <% end %>
+
+  <div class="measure pb3">
+    <%= label f, :name, class: "f6 b db mb2 ttu dib" %>
+    <small id="name-desc" class="f6 red db mb2 dib"><%= error_tag f, :name %></small>
+
+    <%= text_input f, :name, class: "input-reset ba b--black-20 pa2 mb2 db w-100" %>
+  </div>
+
+  <div class="measure pb3">
+    <%= label f, :ip_address, class: "f6 b db mb2 ttu dib" %>
+    <small id="ip_address-desc" class="f6 red db mb2 dib"><%= error_tag f, :ip_address %></small>
+
+    <%= text_input f, :ip_address, class: "input-reset ba b--black-20 pa2 mb2 db w-100" %>
+  </div>
+
+  <div class="measure pb3">
+    <label for="host_check_frequency" class="f6 b db mb2 ttu dib">Check Frequency (ms) | Min 60000</label>
+    <small id="check_frequency-desc" class="f6 red db mb2 dib"><%= error_tag f, :check_frequency %></small>
+
+    <%= text_input f, :check_frequency, class: "input-reset ba b--black-20 pa2 mb2 db w-100", type: "number", value: 60000 %>
+  </div>
+
+  <%= submit "Add Host", class: "pointer bn br2 ba ph4 pv2 mb2 dib white bg-green" %>
+  <%= link "Cancel", to: host_path(@conn, :index), class: "pointer bn br2 ba ph4 pv2 mb2 dib white bg-light-red no-underline"%>
+<% end %>

@@ -1,0 +1,6 @@
+<section class="mw6 center">
+  <h2>Add New Host</h2>
+
+  <%= render "new_form.html", Map.put(assigns, :action, host_path(@conn, :create)) %>
+
+</section>

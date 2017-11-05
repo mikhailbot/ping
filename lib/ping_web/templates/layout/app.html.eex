@@ -7,24 +7,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Ping!</title>
+    <title>Ping</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+    <div class="sans-serif">
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
+      <nav class="dt w-100 mw7 center  border-box pa3 ph5-ns">
+        <a class="f3 dtc v-mid navy b link dim w-25 tc" href="/" title="Home">Ping</a>
+        <div class="dtc v-mid w-75 tr">
+          <a class="link dim dark-gray f6 f5-ns dib mr3 mr4-ns" href="/hosts" title="Hosts">Hosts</a>
+        </div>
+      </nav>
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>

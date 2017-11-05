@@ -16,7 +16,9 @@ defmodule PingWeb.Router do
   scope "/", PingWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", HostController, :index
+
+    resources "/hosts", HostController
   end
 
   # Other scopes may use custom stacks.
