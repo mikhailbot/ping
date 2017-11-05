@@ -37,6 +37,8 @@ defmodule Ping.Monitor do
   """
   def get_host!(id), do: Repo.get!(Host, id)
 
+  def get_host_by_ip(ip_address), do: Repo.get_by(Host, ip_address: ip_address)
+
   @doc """
   Creates a host.
 

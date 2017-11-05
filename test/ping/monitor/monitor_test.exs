@@ -31,6 +31,11 @@ defmodule Ping.MonitorTest do
       assert Monitor.get_host!(host.id) == host
     end
 
+    test "get_host_by_ip/1 returns the host with the given ip address" do
+      host = host_fixture()
+      assert Monitor.get_host_by_ip(host.ip_address) == host
+    end
+
     test "create_host/1 with valid data creates a host" do
       assert {:ok, %Host{} = host} = Monitor.create_host(@valid_attrs)
       assert host.ip_address == "8.8.8.8"

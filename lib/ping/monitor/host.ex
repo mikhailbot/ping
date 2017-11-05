@@ -11,6 +11,8 @@ defmodule Ping.Monitor.Host do
     field :status, :string, default: "initial"
     field :check_frequency, :integer # ms
 
+    has_many :events, Ping.Notifications.Event
+
     timestamps()
   end
 

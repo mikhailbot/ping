@@ -1,6 +1,8 @@
 defmodule Ping.Monitor.Server do
   use GenServer
   alias Ping.Monitor.Check
+  alias Ping.Notifications
+
   # API
 
   def start_link(ip_address, status, check_frequency) do
@@ -61,11 +63,11 @@ defmodule Ping.Monitor.Server do
   end
 
   defp detect_status_transition(%{online_counter: counter} = state) when counter > 3 do
-    # Notify online here
+    Notifications.create_event({:online, state.ip_address})
     %{state | status: "online", online_counter: 0, offline_counter: 0}
   end
   defp detect_status_transition(%{offline_counter: counter} = state) when counter > 3 do
-    # Notify offline here
+    Notifications.create_event({:offline, state.ip_address})
     %{state | status: "offline", offline_counter: 0, offline_counter: 0}
   end
   defp detect_status_transition(state), do: state
