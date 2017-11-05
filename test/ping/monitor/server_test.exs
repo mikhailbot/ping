@@ -35,7 +35,7 @@ defmodule Ping.ServerTest do
     alias Ping.Monitor.Server
 
     setup do
-      {:ok, server_pid} = Server.start_link("localhost", "offline", 10)
+      {:ok, server_pid} = Server.start_link("127.0.0.1", "offline", 10)
 
       on_exit fn ->
         Process.exit server_pid, "End of test"
@@ -47,8 +47,8 @@ defmodule Ping.ServerTest do
     test ":work updates online counter", %{server: pid} do
       assert :ok = Process.send(pid, :work, [])
 
-      assert {:ok, state} = Server.get_state("localhost")
-      assert state.ip_address == "localhost"
+      assert {:ok, state} = Server.get_state("127.0.0.1")
+      assert state.ip_address == "127.0.0.1"
       assert state.status == "offline"
       assert state.online_counter != 0
     end

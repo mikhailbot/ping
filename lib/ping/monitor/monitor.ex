@@ -75,6 +75,16 @@ defmodule Ping.Monitor do
     |> Repo.update()
   end
 
+  def update_host(ip_address, attrs) do
+    with %Host{} = host <- get_host_by_ip(ip_address) do
+      host
+      |> Host.update_status_changeset(attrs)
+      |> Repo.update()
+    else
+      _ -> {:error, "Unable to find host with that IP Address"}
+    end
+  end
+
   @doc """
   Deletes a Host.
 

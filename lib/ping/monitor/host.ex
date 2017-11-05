@@ -24,4 +24,10 @@ defmodule Ping.Monitor.Host do
     |> validate_number(:check_frequency, greater_than_or_equal_to: 60000)
     |> unique_constraint(:ip_address)
   end
+
+  def update_status_changeset(%Host{} = host, attrs) do
+    host
+    |> cast(attrs, [:status, :latency])
+    |> validate_required([:status, :latency])
+  end
 end

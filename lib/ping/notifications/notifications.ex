@@ -10,7 +10,6 @@ defmodule Ping.Notifications do
       %Event{}
       |> Event.changeset(%{host_id: host.id, status: "online"})
       |> Repo.insert()
-      |> IO.inspect
     else
       _ -> {:error, "Unable to find host with that IP Address"}
     end

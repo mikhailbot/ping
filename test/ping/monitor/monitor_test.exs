@@ -8,6 +8,7 @@ defmodule Ping.MonitorTest do
 
     @valid_attrs %{ip_address: "8.8.8.8", name: "some name", check_frequency: 60000}
     @update_attrs %{ip_address: "8.8.4.4", name: "some updated name", check_frequency: 120000}
+    @update_status_attrs %{status: "online", latency: 20}
     @invalid_attrs %{ip_address: nil, name: nil, check_frequency: nil}
     @invalid_ip_attrs %{ip_address: "something wrong", name: "some name", check_frequency: 60000}
     @invalid_frequency_attrs %{ip_address: "8.8.8.8", name: "some name", check_frequency: 100}
@@ -60,6 +61,15 @@ defmodule Ping.MonitorTest do
       host = host_fixture()
       assert {:error, %Ecto.Changeset{}} = Monitor.update_host(host, @invalid_attrs)
       assert host == Monitor.get_host!(host.id)
+    end
+
+    test "update_host/2 with status data updates the host" do
+      host = host_fixture()
+      assert {:ok, host} = Monitor.update_host(host.ip_address, @update_status_attrs)
+      assert %Host{} = host
+      assert host.ip_address == "8.8.8.8"
+      assert host.status == "online"
+      assert host.latency == 20
     end
 
     test "delete_host/1 deletes the host" do

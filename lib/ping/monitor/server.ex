@@ -1,7 +1,7 @@
 defmodule Ping.Monitor.Server do
   use GenServer
+  alias Ping.{Monitor, Notifications}
   alias Ping.Monitor.Check
-  alias Ping.Notifications
 
   # API
 
@@ -43,6 +43,7 @@ defmodule Ping.Monitor.Server do
         state
         |> apply_results(results)
         |> detect_status_transition()
+        |> update_host()
       else
         {:error, error} ->
           IO.puts "An error occured"
@@ -71,6 +72,11 @@ defmodule Ping.Monitor.Server do
     %{state | status: "offline", offline_counter: 0, offline_counter: 0}
   end
   defp detect_status_transition(state), do: state
+
+  defp update_host(state) do
+    Monitor.update_host(state.ip_address, %{status: state.status, latency: state.latency})
+    state
+  end
 
   defp schedule_work(check_frequency) do
     Process.send_after(self(), :work, check_frequency)
