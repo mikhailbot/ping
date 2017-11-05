@@ -16,7 +16,7 @@ defmodule Ping.Monitor.Check do
 
     latency =
       case Regex.run(~r/(?<=time=)(.*)(?=\.)/, cmd_output) do
-        [_ | timeout] -> String.to_integer(Enum.fetch!(timeout, 0))
+        [_ | timeout] -> String.to_integer(Enum.fetch!(timeout, 0)) + 1 # Add 1ms so localhost shows as online
         _ -> 0
       end
 

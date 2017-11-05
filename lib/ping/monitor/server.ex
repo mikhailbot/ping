@@ -40,6 +40,10 @@ defmodule Ping.Monitor.Server do
         state
         |> apply_results(results)
         |> detect_status_transition()
+      else
+        {:error, error} ->
+          IO.puts "An error occured"
+          error
       end
 
       schedule_work()
