@@ -32,7 +32,7 @@ defmodule Ping.Monitor.Server do
   end
 
   def handle_call(:get_state, _from, state) do
-    {:reply, state, state}
+    {:reply, {:ok, state}, state}
   end
 
   def handle_info(:work, state) do
