@@ -5,8 +5,8 @@ defmodule Ping.Monitor.Supervisor do
     Supervisor.start_link(__MODULE__, [], name: :monitor_supervisor)
   end
 
-  def start_monitoring_host(ip_address, status) do
-    Supervisor.start_child(:monitor_supervisor, [ip_address, status])
+  def start_monitoring_host(ip_address, status, check_frequency) do
+    Supervisor.start_child(:monitor_supervisor, [ip_address, status, check_frequency])
   end
 
   def init(_) do

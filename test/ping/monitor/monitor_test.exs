@@ -6,10 +6,11 @@ defmodule Ping.MonitorTest do
   describe "hosts" do
     alias Ping.Monitor.Host
 
-    @valid_attrs %{ip_address: "8.8.8.8", name: "some name"}
-    @update_attrs %{ip_address: "8.8.4.4", name: "some updated name"}
-    @invalid_attrs %{ip_address: nil, name: nil}
-    @invalid_ip_attrs %{ip_address: "something wrong", name: "some name"}
+    @valid_attrs %{ip_address: "8.8.8.8", name: "some name", check_frequency: 60000}
+    @update_attrs %{ip_address: "8.8.4.4", name: "some updated name", check_frequency: 120000}
+    @invalid_attrs %{ip_address: nil, name: nil, check_frequency: nil}
+    @invalid_ip_attrs %{ip_address: "something wrong", name: "some name", check_frequency: 60000}
+    @invalid_frequency_attrs %{ip_address: "8.8.8.8", name: "some name", check_frequency: 100}
 
     def host_fixture(attrs \\ %{}) do
       {:ok, host} =
@@ -34,6 +35,7 @@ defmodule Ping.MonitorTest do
       assert {:ok, %Host{} = host} = Monitor.create_host(@valid_attrs)
       assert host.ip_address == "8.8.8.8"
       assert host.name == "some name"
+      assert host.check_frequency == 60000
     end
 
     test "create_host/1 with invalid data returns error changeset" do
@@ -46,6 +48,7 @@ defmodule Ping.MonitorTest do
       assert %Host{} = host
       assert host.ip_address == "8.8.4.4"
       assert host.name == "some updated name"
+      assert host.check_frequency == 120000
     end
 
     test "update_host/2 with invalid data returns error changeset" do
@@ -67,6 +70,10 @@ defmodule Ping.MonitorTest do
 
     test "create_host/1 with invalid ip address returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Monitor.create_host(@invalid_ip_attrs)
+    end
+
+    test "create_host/1 with invalid check frequency returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Monitor.create_host(@invalid_frequency_attrs)
     end
   end
 end

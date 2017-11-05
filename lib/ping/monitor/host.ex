@@ -9,6 +9,7 @@ defmodule Ping.Monitor.Host do
     field :latency, :integer
     field :name, :string
     field :status, :string, default: "initial"
+    field :check_frequency, :integer # ms
 
     timestamps()
   end
@@ -16,8 +17,9 @@ defmodule Ping.Monitor.Host do
   @doc false
   def changeset(%Host{} = host, attrs) do
     host
-    |> cast(attrs, [:name, :ip_address])
-    |> validate_required([:name, :ip_address])
+    |> cast(attrs, [:name, :ip_address, :check_frequency])
+    |> validate_required([:name, :ip_address, :check_frequency])
+    |> validate_number(:check_frequency, greater_than_or_equal_to: 60000)
     |> unique_constraint(:ip_address)
   end
 end

@@ -7,6 +7,7 @@ defmodule Ping.Repo.Migrations.CreateHosts do
       add :ip_address, :string
       add :status, :string
       add :latency, :integer
+      add :check_frequency, :integer
 
       timestamps()
     end

@@ -3,8 +3,8 @@ defmodule Ping.Monitor.Server do
   alias Ping.Monitor.Check
   # API
 
-  def start_link(ip_address, status) do
-    GenServer.start_link(__MODULE__, %{ip_address: ip_address, status: status}, name: via_tuple(ip_address))
+  def start_link(ip_address, status, check_frequency) do
+    GenServer.start_link(__MODULE__, %{ip_address: ip_address, status: status, check_frequency: check_frequency}, name: via_tuple(ip_address))
   end
 
   defp via_tuple(ip_address) do
@@ -24,9 +24,10 @@ defmodule Ping.Monitor.Server do
       latency: 0,
       online_counter: 0,
       offline_counter: 0,
+      check_frequency: initial_state.check_frequency
     }
 
-    schedule_work()
+    schedule_work(state.check_frequency)
     {:ok, state}
   end
 
@@ -46,7 +47,7 @@ defmodule Ping.Monitor.Server do
           error
       end
 
-      schedule_work()
+      schedule_work(state.check_frequency)
     {:noreply, new_state}
   end
 
@@ -69,7 +70,7 @@ defmodule Ping.Monitor.Server do
   end
   defp detect_status_transition(state), do: state
 
-  defp schedule_work() do
-    Process.send_after(self(), :work, 1000 * 10) # Do work every 10 seconds
+  defp schedule_work(check_frequency) do
+    Process.send_after(self(), :work, check_frequency)
   end
 end
