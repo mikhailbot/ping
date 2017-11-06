@@ -127,4 +127,9 @@ defmodule Ping.Monitor do
   defp start_new_host ({:error, %Ecto.Changeset{} = changeset}) do
     {:error, changeset}
   end
+
+  def update_channel do
+    html = Phoenix.View.render_to_string(PingWeb.HostView, "index.html", hosts: list_hosts)
+    PingWeb.Endpoint.broadcast("hosts", "update_html", %{html: html})
+  end
 end

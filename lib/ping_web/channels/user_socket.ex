@@ -2,7 +2,7 @@ defmodule PingWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", PingWeb.RoomChannel
+  channel "hosts", PingWeb.HostChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

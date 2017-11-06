@@ -49,6 +49,7 @@ defmodule Ping.Monitor.Server do
           error
       end
 
+      Monitor.update_channel()
       schedule_work(state.check_frequency)
     {:noreply, new_state}
   end
