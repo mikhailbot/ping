@@ -18,7 +18,8 @@ defmodule Ping.Monitor do
 
   """
   def list_hosts do
-    Repo.all(Host)
+    from(h in Host, order_by: h.name)
+    |> Repo.all()
   end
 
   @doc """
