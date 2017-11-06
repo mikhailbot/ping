@@ -43,7 +43,6 @@ defmodule Ping.Monitor.Server do
         state
         |> apply_results(results)
         |> detect_status_transition()
-        |> update_host()
       else
         {:error, error} ->
           IO.puts "An error occured"
@@ -65,15 +64,15 @@ defmodule Ping.Monitor.Server do
 
   defp detect_status_transition(%{online_counter: counter} = state) when counter > 3 do
     Notifications.create_event({:online, state.ip_address})
+    Monitor.update_host(state.ip_address, %{status: "online", latency: state.latency})
     %{state | status: "online", online_counter: 0, offline_counter: 0}
   end
   defp detect_status_transition(%{offline_counter: counter} = state) when counter > 3 do
     Notifications.create_event({:offline, state.ip_address})
+    Monitor.update_host(state.ip_address, %{status: "offline", latency: state.latency})
     %{state | status: "offline", offline_counter: 0, offline_counter: 0}
   end
-  defp detect_status_transition(state), do: state
-
-  defp update_host(state) do
+  defp detect_status_transition(state) do
     Monitor.update_host(state.ip_address, %{status: state.status, latency: state.latency})
     state
   end

@@ -55,6 +55,7 @@ defmodule Ping.Monitor do
     %Host{}
     |> Host.changeset(attrs)
     |> Repo.insert()
+    |> start_new_host()
   end
 
   @doc """
@@ -117,5 +118,13 @@ defmodule Ping.Monitor do
   def start_monitoring do
     list_hosts()
     |> Enum.each(fn (host) -> Supervisor.start_monitoring_host(host.ip_address, host.status, host.check_frequency) end)
+  end
+
+  defp start_new_host ({:ok, %Host{} = host}) do
+    Supervisor.start_monitoring_host(host.ip_address, host.status, host.check_frequency)
+    {:ok, host}
+  end
+  defp start_new_host ({:error, %Ecto.Changeset{} = changeset}) do
+    {:error, changeset}
   end
 end

@@ -28,6 +28,5 @@ defmodule Ping.Monitor.Host do
   def update_status_changeset(%Host{} = host, attrs) do
     host
     |> cast(attrs, [:status, :latency])
-    |> validate_required([:status, :latency])
   end
 end
