@@ -90,5 +90,15 @@ defmodule Ping.MonitorTest do
     test "create_host/1 with invalid check frequency returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Monitor.create_host(@invalid_frequency_attrs)
     end
+
+    test "import_hosts/1 with valid csv creates hosts" do
+      assert {:ok, count} = Monitor.import_hosts(File.stream!("test/fixtures/valid_hosts.csv"))
+      assert count == 3
+    end
+
+    test "import_hosts/1 with invalid csv creates only valid hosts" do
+      assert {:ok, count} = Monitor.import_hosts(File.stream!("test/fixtures/invalid_hosts.csv"))
+      assert count == 2
+    end
   end
 end

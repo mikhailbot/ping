@@ -133,4 +133,36 @@ defmodule Ping.Monitor do
     html = Phoenix.View.render_to_string(PingWeb.HostView, "index.html", hosts: list_hosts())
     PingWeb.Endpoint.broadcast("hosts", "update_html", %{html: html})
   end
+
+  @doc """
+  Allows importing multiple hosts via a CSV file.
+
+  host01,8.8.8.8,60000
+  host02,8.8.4.4,60000
+  host03,127.0.0.1,60000
+
+  Returns a count of hosts added.
+  """
+  def import_hosts(csv) do
+    count =
+      csv.path
+      |> File.stream!()
+      |> CSV.decode(headers: [:name, :ip_address, :check_frequency])
+      |> Enum.map(fn (host) -> import_host(host) end)
+      |> Enum.count(fn ({k, _v}) -> k == :ok end)
+
+    {:ok, count}
+  end
+
+  defp import_host({:ok, host}) do
+    with {:ok, new_host} <- create_host(host) do
+      {:ok, new_host}
+    else
+      _ ->
+        {:error, "Something went wrong importing host.."}
+    end
+  end
+  defp import_host({:error, message}) do
+    IO.puts message
+  end
 end
