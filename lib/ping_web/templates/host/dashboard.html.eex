@@ -10,7 +10,7 @@
 <section class="flex flex-wrap">
   <%= for host <- @hosts.hosts do %>
 
-  <div class="bg-white br3 pa3 ma1 ba b--black-10 flex justify-around align-center">
+  <div class="bg-white br3 pa3 ma1 ba b--black-10 flex justify-around items-center">
     <div class="mr2"><%= host.name %></div>
     <%= render "dashboard_host_latency.html", host: host %>
   </div>
