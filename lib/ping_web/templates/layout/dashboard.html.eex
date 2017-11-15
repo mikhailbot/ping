@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Ping</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body>
+    <div class="sans-serif">
+
+      <nav class="dt w-100 mw-100 center  border-box pa2">
+        <a class="f3 dtc v-mid navy b link dim w-25" href="/" title="Home">Ping</a>
+        <div class="dtc v-mid w-75 tr">
+          <a class="link dim dark-gray f6 f5-ns dib mr2" href="/dashboard" title="Dashboard">Dashboard</a>
+        </div>
+      </nav>
+      <main role="main">
+        <%= render @view_module, @view_template, assigns %>
+      </main>
+
+    </div> <!-- /container -->
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+</html>

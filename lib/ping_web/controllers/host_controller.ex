@@ -48,4 +48,10 @@ defmodule PingWeb.HostController do
         render(conn, "edit.html", host: host, changeset: changeset)
     end
   end
+
+  def dashboard(conn, _params) do
+    hosts = Monitor.list_hosts()
+    status = Monitor.host_status()
+    render(conn, "dashboard.html", layout: {PingWeb.LayoutView, "dashboard.html"}, hosts: %{hosts: hosts, status: status})
+  end
 end

@@ -165,4 +165,11 @@ defmodule Ping.Monitor do
   defp import_host({:error, message}) do
     IO.puts message
   end
+
+  def host_status do
+    online_hosts = Repo.one(from h in "hosts", select: count(h.id), where: h.status == "online")
+    offline_hosts = Repo.one(from h in "hosts", select: count(h.id), where: h.status == "offline")
+
+    %{online_hosts: online_hosts, offline_hosts: offline_hosts}
+  end
 end

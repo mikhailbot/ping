@@ -1,0 +1,19 @@
+<section class="mw7 center flex justify-center mb3">
+  <div class="f2 b green mh2">
+    <%= @hosts.status.online_hosts %> Online
+  </div>
+  <div class="f2 b red mh2">
+    <%= @hosts.status.offline_hosts %> Offline
+  </div>
+</section>
+
+<section class="flex flex-wrap">
+  <%= for host <- @hosts.hosts do %>
+
+  <div class="bg-white br3 pa3 ma1 ba b--black-10 flex justify-around align-center">
+    <div class="mr2"><%= host.name %></div>
+    <%= render "dashboard_host_latency.html", host: host %>
+  </div>
+
+  <% end %>
+</section>

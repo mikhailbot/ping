@@ -17,6 +17,7 @@ defmodule PingWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", HostController, :index
+    get "/dashboard", HostController, :dashboard
 
     resources "/hosts", HostController
   end
