@@ -93,7 +93,7 @@ defmodule Ping.MonitorTest do
 
     test "import_hosts/1 with valid csv creates hosts" do
       assert {:ok, count} = Monitor.import_hosts(File.stream!("test/fixtures/valid_hosts.csv"))
-      assert count == 3
+      assert count == 2
     end
 
     test "import_hosts/1 with invalid csv creates only valid hosts" do
