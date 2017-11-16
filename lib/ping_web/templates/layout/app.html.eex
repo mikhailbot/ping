@@ -20,6 +20,7 @@
       <nav class="dt w-100 mw7 center  border-box pa3 ph5-ns">
         <a class="f3 dtc v-mid navy b link dim w-25 tc" href="/" title="Home">Ping</a>
         <div class="dtc v-mid w-75 tr">
+          <a class="link dim dark-gray f6 f5-ns dib mr3 mr4-ns" href="/dashboard" title="Hosts">Dashboard</a>
           <a class="link dim dark-gray f6 f5-ns dib mr3 mr4-ns" href="/hosts" title="Hosts">Hosts</a>
         </div>
       </nav>

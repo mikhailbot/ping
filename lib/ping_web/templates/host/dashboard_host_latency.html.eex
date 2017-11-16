@@ -9,9 +9,9 @@
       </svg>
     </span>
   <% @host.latency > 0 -> %>
-    <div class="b green"><%= @host.latency %> ms</div>
+    <div class="b green f3"><%= @host.latency %> ms</div>
   <% @host.latency == 0 -> %>
-    <div class="b red">
+    <div class="b red f3">
       <svg width="21px" height="21px" viewBox="-1 -1 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
           <desc>Created with Sketch.</desc>
