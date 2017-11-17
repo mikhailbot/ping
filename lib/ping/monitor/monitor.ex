@@ -168,7 +168,7 @@ defmodule Ping.Monitor do
   end
 
   def host_status do
-    events_query = from e in Event, limit: 1
+    events_query = from e in Event, limit: 1, order_by: [desc: e.inserted_at]
 
     online_hosts = Repo.all(from h in Host, where: h.status == "online", order_by: h.name)
 
