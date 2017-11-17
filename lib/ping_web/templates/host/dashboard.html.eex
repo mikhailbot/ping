@@ -7,7 +7,7 @@
     <div class="flex flex-wrap">
       <%= for host <- @hosts.online_hosts do %>
 
-      <div class="br3 pv3 ph4 ma2 ba b--black-10 bg-near-white flex justify-around items-center">
+      <div class="br3 pv3 ph4 ma2 ba b--black-10 bg-near-white flex justify-center items-center">
         <div class="mr3 f3"><%= host.name %></div>
         <div class="b green f3"><%= host.latency %> ms</div>
       </div>
@@ -16,7 +16,7 @@
     </div>
   </section>
 
-  <section class="mw7 center mb3">
+  <section class="mw-100 center mb3">
     <div class="f1 b red tc mh3 mb3">
       <%= Enum.count @hosts.offline_hosts %> Hosts Offline
     </div>
@@ -25,7 +25,7 @@
       <%= for host <- @hosts.offline_hosts do %>
 
       <div class="br3 pa3 ma2 ba b--black-10  bg-near-white">
-        <div class="flex justify-around items-center">
+        <div class="flex justify-center items-center">
           <div class="mr3 f3"><%= host.name %></div>
           <div class="b red f3">
             <svg width="21px" height="21px" viewBox="-1 -1 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -37,8 +37,10 @@
           </div>
         </div>
         <div class="mt4 tc">
-          <%= for event <- host.events do %>
-            <div class="b f4"><%= event.inserted_at %></div>
+          <%= if host.last_online do %>
+            <div class="b f4">Last online <%= host.last_online %></div>
+          <%= else %>
+            <div class="b f4">Last online unknown</div>
           <% end %>
         </div>
       </div>

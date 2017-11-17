@@ -42,7 +42,8 @@ defmodule Ping.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:gproc, "~> 0.6.1"},
-      {:csv, "~> 2.0.0"}
+      {:csv, "~> 2.0.0"},
+      {:timex, "~> 3.1"}
     ]
   end
 
