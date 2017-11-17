@@ -1,6 +1,7 @@
 // To use Phoenix channels, the first step is to import Socket
 // and connect at the socket path in "lib/web/endpoint.ex":
 import { Socket } from "phoenix"
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 
 let socket = new Socket("/socket", { params: { token: window.userToken } })
 
@@ -14,9 +15,8 @@ channel.join()
   .receive("error", resp => { console.log("Unable to join dashboard channel", resp) })
 
 channel.on("update_html", payload => {
-  console.log(payload)
-  // document.getElementById("list-of-hosts").innerHTML = payload.html
-  // document.getElementById("last-updated").innerHTML = 'Last updated ' + new Date().toString()
+  document.getElementById("dashboard").innerHTML = payload.html
 })
+
 
 export default socket

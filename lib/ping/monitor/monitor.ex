@@ -6,6 +6,7 @@ defmodule Ping.Monitor do
   import Ecto.Query, warn: false
   alias Ping.Repo
 
+  alias Ping.Notifications.Event
   alias Ping.Monitor.{Host, Supervisor}
 
   @doc """
@@ -130,8 +131,8 @@ defmodule Ping.Monitor do
   end
 
   def update_channel do
-    # html = Phoenix.View.render_to_string(PingWeb.HostView, "index.html", hosts: list_hosts())
-    # PingWeb.Endpoint.broadcast("hosts", "update_html", %{html: html})
+    html = Phoenix.View.render_to_string(PingWeb.HostView, "dashboard.html", hosts: host_status())
+    PingWeb.Endpoint.broadcast("dashboard", "update_html", %{html: html})
   end
 
   @doc """
@@ -167,8 +168,10 @@ defmodule Ping.Monitor do
   end
 
   def host_status do
-    online_hosts = Repo.one(from h in "hosts", select: count(h.id), where: h.status == "online")
-    offline_hosts = Repo.one(from h in "hosts", select: count(h.id), where: h.status == "offline")
+    events_query = from e in Event, limit: 1
+
+    online_hosts = Repo.all(from h in Host, where: h.status == "online")
+    offline_hosts = Repo.all(from h in Host, where: h.status == "offline", preload: [events: ^events_query])
 
     %{online_hosts: online_hosts, offline_hosts: offline_hosts}
   end
