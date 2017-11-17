@@ -38,7 +38,7 @@
       <div class="mt4 tc">
         <%= if host.last_online do %>
           <div class="b f4">Last online <%= host.last_online %></div>
-        <%= else %>
+        <% else %>
           <div class="b f4">Last online unknown</div>
         <% end %>
       </div>
