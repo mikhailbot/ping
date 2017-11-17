@@ -20,7 +20,7 @@
           <a class="link dim dark-gray f6 f5-ns dib mr2" href="/dashboard" title="Dashboard">Dashboard</a>
         </div>
       </nav>
-      <main role="main">
+      <main role="main" id="dashboard">
         <%= render @view_module, @view_template, assigns %>
       </main>
 

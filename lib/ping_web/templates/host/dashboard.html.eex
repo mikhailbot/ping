@@ -1,51 +1,49 @@
-<div id="dashboard">
-  <section class="mw-100 center mb6">
-    <div class="f1 b green tc mh3 mb3">
-      <%= Enum.count @hosts.online_hosts %> Hosts Online
+<section class="mw-100 center mb6">
+  <div class="f1 b green tc mh3 mb3">
+    <%= Enum.count @hosts.online_hosts %> Hosts Online
+  </div>
+
+  <div class="flex flex-wrap justify-center">
+    <%= for host <- @hosts.online_hosts do %>
+
+    <div class="br3 pv3 ph4 ma2 ba b--black-10 bg-near-white flex justify-center items-center">
+      <div class="mr3 f3"><%= host.name %></div>
+      <div class="b green f3"><%= host.latency %> ms</div>
     </div>
 
-    <div class="flex flex-wrap">
-      <%= for host <- @hosts.online_hosts do %>
+    <% end %>
+  </div>
+</section>
 
-      <div class="br3 pv3 ph4 ma2 ba b--black-10 bg-near-white flex justify-center items-center">
+<section class="mw-100 center mb3">
+  <div class="f1 b red tc mh3 mb3">
+    <%= Enum.count @hosts.offline_hosts %> Hosts Offline
+  </div>
+
+  <div class="flex flex-wrap justify-center">
+    <%= for host <- @hosts.offline_hosts do %>
+
+    <div class="br3 pa3 ma2 ba b--black-10  bg-near-white">
+      <div class="flex justify-center items-center">
         <div class="mr3 f3"><%= host.name %></div>
-        <div class="b green f3"><%= host.latency %> ms</div>
-      </div>
-
-      <% end %>
-    </div>
-  </section>
-
-  <section class="mw-100 center mb3">
-    <div class="f1 b red tc mh3 mb3">
-      <%= Enum.count @hosts.offline_hosts %> Hosts Offline
-    </div>
-
-    <div class="flex flex-wrap">
-      <%= for host <- @hosts.offline_hosts do %>
-
-      <div class="br3 pa3 ma2 ba b--black-10  bg-near-white">
-        <div class="flex justify-center items-center">
-          <div class="mr3 f3"><%= host.name %></div>
-          <div class="b red f3">
-            <svg width="21px" height="21px" viewBox="-1 -1 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
-                <desc>Created with Sketch.</desc>
-                <defs></defs>
-                <path d="M2.93,17.07 C0.330434155,14.5592553 -0.712125972,10.8412211 0.203028434,7.34492676 C1.11818284,3.84863244 3.84863244,1.11818284 7.34492676,0.203028434 C10.8412211,-0.712125972 14.5592553,0.330434155 17.07,2.93 C20.8597221,6.85378887 20.8055237,13.0908478 16.9481858,16.9481858 C13.0908478,20.8055237 6.85378887,20.8597221 2.93,17.07 L2.93,17.07 Z M9,5 L9,11 L11,11 L11,5 L9,5 Z M9,13 L9,15 L11,15 L11,13 L9,13 Z" id="Shape" stroke="none" fill="#FF4136" fill-rule="nonzero"></path>
-            </svg>
-          </div>
-        </div>
-        <div class="mt4 tc">
-          <%= if host.last_online do %>
-            <div class="b f4">Last online <%= host.last_online %></div>
-          <%= else %>
-            <div class="b f4">Last online unknown</div>
-          <% end %>
+        <div class="b red f3">
+          <svg width="21px" height="21px" viewBox="-1 -1 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+              <desc>Created with Sketch.</desc>
+              <defs></defs>
+              <path d="M2.93,17.07 C0.330434155,14.5592553 -0.712125972,10.8412211 0.203028434,7.34492676 C1.11818284,3.84863244 3.84863244,1.11818284 7.34492676,0.203028434 C10.8412211,-0.712125972 14.5592553,0.330434155 17.07,2.93 C20.8597221,6.85378887 20.8055237,13.0908478 16.9481858,16.9481858 C13.0908478,20.8055237 6.85378887,20.8597221 2.93,17.07 L2.93,17.07 Z M9,5 L9,11 L11,11 L11,5 L9,5 Z M9,13 L9,15 L11,15 L11,13 L9,13 Z" id="Shape" stroke="none" fill="#FF4136" fill-rule="nonzero"></path>
+          </svg>
         </div>
       </div>
-
-      <% end %>
+      <div class="mt4 tc">
+        <%= if host.last_online do %>
+          <div class="b f4">Last online <%= host.last_online %></div>
+        <%= else %>
+          <div class="b f4">Last online unknown</div>
+        <% end %>
+      </div>
     </div>
-  </section>
-</div>
+
+    <% end %>
+  </div>
+</section>

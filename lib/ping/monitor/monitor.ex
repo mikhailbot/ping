@@ -170,15 +170,13 @@ defmodule Ping.Monitor do
   def host_status do
     events_query = from e in Event, limit: 1
 
-    online_hosts = Repo.all(from h in Host, where: h.status == "online")
+    online_hosts = Repo.all(from h in Host, where: h.status == "online", order_by: h.name)
 
     offline_hosts =
-      Repo.all(from h in Host, where: h.status == "offline", preload: [events: ^events_query])
+      Repo.all(from h in Host, where: h.status == "offline", preload: [events: ^events_query], order_by: h.name)
       |> Enum.map(fn host ->
 
         with [event] <- host.events do
-          IO.inspect event
-
           last_online =
             event.inserted_at
             |> Timex.format!("{relative}", :relative)
