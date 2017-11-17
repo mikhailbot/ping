@@ -130,8 +130,8 @@ defmodule Ping.Monitor do
   end
 
   def update_channel do
-    html = Phoenix.View.render_to_string(PingWeb.HostView, "index.html", hosts: list_hosts())
-    PingWeb.Endpoint.broadcast("hosts", "update_html", %{html: html})
+    # html = Phoenix.View.render_to_string(PingWeb.HostView, "index.html", hosts: list_hosts())
+    # PingWeb.Endpoint.broadcast("hosts", "update_html", %{html: html})
   end
 
   @doc """

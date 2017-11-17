@@ -2,7 +2,7 @@ defmodule PingWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "hosts", PingWeb.HostChannel
+  channel "dashboard", PingWeb.DashboardChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

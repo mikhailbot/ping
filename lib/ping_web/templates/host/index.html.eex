@@ -42,7 +42,4 @@
       <% end %>
     </div>
   </section>
-  <section class="mw6 center">
-    <time class="db tc f6 gray mt3" id="last-updated"></time>
-  </section>
 </div>
