@@ -17,7 +17,8 @@ config :ping, PingWeb.Endpoint,
   load_from_system_env: true,
   http: [port: 4000],
   url: [host: "pongmonitor.has.uwo.pri", port: 4000],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  server: true
 
 # Do not print debug messages in production
 config :logger, level: :info
