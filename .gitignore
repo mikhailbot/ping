@@ -27,3 +27,6 @@ npm-debug.log
 
 # TEMPORARY
 #/config/*.secret.exs
+
+# Releases
+releases/*
