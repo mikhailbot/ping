@@ -43,7 +43,10 @@ defmodule Ping.Mixfile do
       {:cowboy, "~> 1.0"},
       {:gproc, "~> 0.6.1"},
       {:csv, "~> 2.0.0"},
-      {:timex, "~> 3.1"}
+      {:timex, "~> 3.1"},
+      {:distillery, "~> 1.5"},
+      {:bootleg, "~> 0.6"},
+      {:bootleg_phoenix, "~> 0.2"}
     ]
   end
 
