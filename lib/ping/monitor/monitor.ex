@@ -119,7 +119,7 @@ defmodule Ping.Monitor do
 
   def start_monitoring do
     list_hosts()
-    |> Enum.each(fn (host) -> Supervisor.start_monitoring_host(host.ip_address, "initial", host.check_frequency) end)
+    |> Enum.each(fn (host) -> Supervisor.start_monitoring_host(host.ip_address, host.status, host.check_frequency) end)
   end
 
   defp start_new_host ({:ok, %Host{} = host}) do
