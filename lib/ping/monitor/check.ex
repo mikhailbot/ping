@@ -14,8 +14,6 @@ defmodule Ping.Monitor.Check do
       # return code should be handled somehow with pattern matching
     {cmd_output, _} = System.cmd("ping", ping_args(ip_address))
 
-    IO.inspect cmd_output
-
     latency =
       case Regex.run(~r/time=(.*?) ms/, cmd_output) do
         [_ | timeout] -> List.first(timeout) |> String.split(".") |> List.first |> String.to_integer
