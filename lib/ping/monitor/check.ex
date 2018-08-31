@@ -14,9 +14,11 @@ defmodule Ping.Monitor.Check do
       # return code should be handled somehow with pattern matching
     {cmd_output, _} = System.cmd("ping", ping_args(ip_address))
 
+    IO.inspect cmd_output
+
     latency =
-      case Regex.run(~r/(?<=time=)(.*)(?=\.)/, cmd_output) do
-        [_ | timeout] -> String.to_integer(Enum.fetch!(timeout, 0)) + 1 # Add 1ms so localhost shows as online
+      case Regex.run(~r/time=(.*?) ms/, cmd_output) do
+        [_ | timeout] -> List.first(timeout) |> String.split(".") |> List.first |> String.to_integer
         _ -> 0
       end
 
