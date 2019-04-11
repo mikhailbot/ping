@@ -30,3 +30,6 @@ npm-debug.log
 
 # Releases
 releases/*
+
+# Elixir LS Code extension
+.elixir_ls/
