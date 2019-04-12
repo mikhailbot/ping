@@ -16,7 +16,7 @@ defmodule Ping.Monitor.Check do
 
     latency =
       case Regex.run(~r/time=(.*?) ms/, cmd_output) do
-        [_ | timeout] -> List.first(timeout) |> String.split(".") |> List.first |> String.to_integer
+        [_ | timeout] -> List.first(timeout) |> String.to_float |> Kernel.round |> Kernel.+(1)
         _ -> 0
       end
 
