@@ -6,6 +6,7 @@
     </div>
     <div>
       <%= link "Edit Host", to: host_path(@conn, :edit, @host.id), class: "pointer bn br2 ba ph4 pv2 mb2 dib white bg-blue no-underline ma"%>
+      <%= link "Delete Host", to: host_path(@conn, :delete, @host.id), method: :delete, data: [confirm: "Are you sure?"], class: "pointer bn br2 ba ph4 pv2 mb2 dib white bg-red no-underline ma"%>
     </div>
   </div>
 

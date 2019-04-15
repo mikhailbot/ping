@@ -49,6 +49,16 @@ defmodule PingWeb.HostController do
     end
   end
 
+  def delete(conn, %{"id" => id}) do
+    IO.puts "DELETE"
+    host = Monitor.get_host!(id)
+    {:ok, _} = Monitor.delete_host(host)
+
+    conn
+    |> put_flash(:info, "Host deleted successfully.")
+    |> redirect(to: host_path(conn, :index))
+  end
+
   def dashboard(conn, _params) do
     status = Monitor.host_status()
     IO.inspect status

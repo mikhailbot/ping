@@ -17,6 +17,10 @@ defmodule Ping.Monitor.Server do
     GenServer.call(via_tuple(ip_address), :get_state)
   end
 
+  def stop_monitor(ip_address) do
+    GenServer.call(via_tuple(ip_address), :stop)
+  end
+
   # SERVER
 
   def init(initial_state) do
