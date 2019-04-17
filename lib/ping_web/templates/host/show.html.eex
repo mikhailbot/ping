@@ -10,7 +10,12 @@
     </div>
   </div>
 
-  <div class="tc f6 gray i pt3">
-    <p>Some fancy graphs and info will go here...</p>
+  <div class="pt4">
+    <h3>Recent Events</h3>
+    <%= for event <- @host.events do %>
+      <div class="pb2">
+        <%= Timex.format!(event.inserted_at, "%Y-%m-%d %k:%M", :strftime) %> | <%= event.status %>
+      </div>
+    <% end %>
   </div>
 </section>

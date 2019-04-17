@@ -37,7 +37,11 @@ defmodule Ping.Monitor do
       ** (Ecto.NoResultsError)
 
   """
-  def get_host!(id), do: Repo.get!(Host, id)
+  def get_host!(id) do
+    Host
+    |> Repo.get!(id)
+    |> Repo.preload(events: from(e in Event, order_by: [desc: :inserted_at], limit: 20))
+  end
 
   def get_host_by_ip(ip_address), do: Repo.get_by(Host, ip_address: ip_address)
 
